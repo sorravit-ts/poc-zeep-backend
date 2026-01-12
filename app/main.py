@@ -9,6 +9,7 @@ app = FastAPI()
 
 @app.post("/pods/{pod_id}/open")
 async def open_pod(pod_id: int, bg: BackgroundTasks):
+    # Map pod_id to device_id * รอ confirm pattern from IoT team ก่อน *
     device_id = POD_DEVICE_MAP.get(pod_id)
 
     if not device_id:
@@ -22,6 +23,8 @@ async def open_pod(pod_id: int, bg: BackgroundTasks):
         device_id,
         command.model_dump(),
     )
+
+    # await send_c2d_message(device_id=device_id, payload=command.model_dump())
 
     return {
         "status": "accepted",

@@ -13,6 +13,7 @@ http_client = httpx.AsyncClient(
 
 
 async def send_c2d_message(device_id: str, payload: dict) -> None:
+    # Get SAS token
     sas_token = get_cached_sas_token()
 
     url = (
@@ -21,6 +22,7 @@ async def send_c2d_message(device_id: str, payload: dict) -> None:
         f"?api-version={API_VERSION}"
     )
 
+    # Send the C2D message
     response = await http_client.post(
         url,
         headers={
