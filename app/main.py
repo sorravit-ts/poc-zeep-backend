@@ -15,13 +15,23 @@ async def open_pod(pod_id: int, bg: BackgroundTasks):
     if not device_id:
         raise HTTPException(status_code=404, detail="Pod not found")
 
-    command = OpenDoorCommand()
+    # command = OpenDoorCommand()
 
+    payload = [
+        {
+            "type": "air",
+            "action": "OPEN_AIR",
+        },
+        {
+            "type": "door",
+            "action": "OPEN_DOOR",
+        },
+    ]
     # 🔥 fire-and-forget
     bg.add_task(
         send_c2d_message,
         device_id,
-        command.model_dump(),
+        payload
     )
 
     # await send_c2d_message(device_id=device_id, payload=command.model_dump())
