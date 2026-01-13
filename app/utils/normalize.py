@@ -1,3 +1,9 @@
+def normalize_headers(fieldnames: list[str] | None) -> list[str]:
+    if not fieldnames:
+        return []
+    return [h.strip().replace("\ufeff", "") for h in fieldnames]
+
+
 def normalize_device_status(status: str | None) -> str:
     if not status:
         return "enabled"

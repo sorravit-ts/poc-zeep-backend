@@ -2,10 +2,10 @@
 import json
 import httpx
 
-from app.utils.common import normalize_device_status
+from app.core.config import IOTHUB_NAME
+from app.services.iothub.iothub_sas import get_cached_sas_token
+from app.utils.normalize import normalize_device_status
 
-from .config import IOTHUB_NAME
-from .iothub_sas import get_cached_sas_token
 
 API_VERSION = "2021-04-12"
 
@@ -72,3 +72,46 @@ async def create_device(
 
     response.raise_for_status()
 
+async def get_identity_device(pod_id: str) -> dict | None:
+    sas_token = get_cached_sas_token()
+
+    url = (
+        f"https://{IOTHUB_NAME}"
+        f"/devices/{pod_id}"
+        f"?api-version={API_VERSION}"
+    )
+
+    response = await http_client.get(
+        url,
+        headers={
+            "Authorization": sas_token,
+            "Content-Type": "application/json",
+        },
+    )
+
+    if response.status_code == 404:
+        return None
+
+    response.raise_for_status()
+    return response.json()
+
+async def delete_devices(pod_id: str) -> None:
+    sas_token = get_cached_sas_token()
+
+    url = (
+        f"https://{IOTHUB_NAME}"
+        f"/devices/{pod_id}"
+        f"?api-version={API_VERSION}"
+    )
+
+    response = await http_client.delete(
+        url,
+        headers={
+            "Authorization": sas_token,
+            "If-Match": "*",
+            "Content-Type": "application/json",
+        },
+    )
+
+    response.raise_for_status()
+    return True

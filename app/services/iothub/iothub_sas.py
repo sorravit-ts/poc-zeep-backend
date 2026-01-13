@@ -4,7 +4,7 @@ import hmac
 import hashlib
 import urllib.parse
 
-from .config import (
+from app.core.config import (
     IOTHUB_NAME,
     IOTHUB_POLICY_KEY,
     IOTHUB_POLICY_NAME,
