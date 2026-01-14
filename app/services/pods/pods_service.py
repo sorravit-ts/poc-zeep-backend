@@ -3,9 +3,9 @@ from fastapi import BackgroundTasks, UploadFile
 from fastapi.params import File
 import httpx
 
-from app.pod_map import POD_DEVICE_MAP
-from app.schemas import GoogleSheetRequest
-from app.services.csv_parser import parse_csv_devices
+from app.utils.pod_map import POD_DEVICE_MAP
+from app.schemas.google_sheet import GoogleSheetRequest
+from app.utils.csv_parser import parse_csv_devices
 from app.services.iothub.iothub_http import delete_devices, get_identity_device, send_c2d_message
 from app.utils.device_queue import delete_devices_bulk, enqueue_devices, fetch_devices_info
 

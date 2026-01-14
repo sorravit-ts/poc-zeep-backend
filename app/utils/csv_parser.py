@@ -4,7 +4,6 @@ import io
 
 from app.utils.normalize import normalize_headers
 
-
 def parse_csv_devices(csv_text: str) -> list[tuple[str, str | None]]:
     csv_file = io.StringIO(csv_text)
     reader = csv.DictReader(csv_file)

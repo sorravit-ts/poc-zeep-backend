@@ -1,10 +1,8 @@
     
-from fastapi import APIRouter, BackgroundTasks, HTTPException, UploadFile, File
+from fastapi import APIRouter, BackgroundTasks, UploadFile, File
 
-from app.schemas import GoogleSheetRequest
-from app.services.csv_parser import parse_csv_devices
+from app.schemas.google_sheet import GoogleSheetRequest
 from app.services.pods.pods_service import create_pod_device_service, create_pod_devices_from_csv_service, create_pod_devices_from_google_sheet_service
-from app.utils.device_queue import enqueue_devices
 
 router = APIRouter(prefix="/pods/new-device", tags=["pods:create"])
 

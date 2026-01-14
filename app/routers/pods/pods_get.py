@@ -1,6 +1,6 @@
 from fastapi import APIRouter, File, UploadFile
 
-from app.schemas import GoogleSheetRequest
+from app.schemas.google_sheet import GoogleSheetRequest
 from app.services.pods.pods_service import get_device_by_pod_id_service, get_devices_from_csv_service, get_devices_from_google_sheet_service
 
 
