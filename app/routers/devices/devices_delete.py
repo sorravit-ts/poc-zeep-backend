@@ -1,10 +1,10 @@
 from fastapi import APIRouter, File, UploadFile
 
 from app.schemas.google_sheet import GoogleSheetRequest
-from app.services.pods.pods_service import delete_device_by_pod_id_service, delete_devices_from_csv_service, delete_devices_from_google_sheet_service
+from app.services.pods.devices_service import delete_device_by_pod_id_service, delete_devices_from_csv_service, delete_devices_from_google_sheet_service
 
 
-router = APIRouter(prefix="/pods/device", tags=["pods:delete"])
+router = APIRouter(prefix="/device/device", tags=["device:delete"])
 @router.delete("/csv")
 async def delete_devices_from_csv(
     file: UploadFile = File(...),

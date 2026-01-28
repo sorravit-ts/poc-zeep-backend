@@ -1,7 +1,7 @@
 import threading
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
-from app.routers.pods import pods_control, pods_create, pods_delete, pods_get
+from app.routers.devices import devices_control, devices_create, devices_delete, devices_get
 from app.services.iothub.iothub_consumer import EventHubConsumerService
 
 consumer = EventHubConsumerService()
@@ -9,6 +9,7 @@ consumer = EventHubConsumerService()
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # ---------- startup ----------
+    
     consumer_thread = threading.Thread(
         target=consumer.start,
         name="eventhub-consumer",
@@ -19,6 +20,7 @@ async def lifespan(app: FastAPI):
     app.state.consumer_thread = consumer_thread
 
     print("✅ EventHub consumer thread started")
+
 
     yield
 
@@ -34,10 +36,10 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
-app.include_router(pods_control.router)
-app.include_router(pods_create.router)
-app.include_router(pods_get.router)
-app.include_router(pods_delete.router)
+app.include_router(devices_control.router)
+app.include_router(devices_create.router)
+app.include_router(devices_get.router)
+app.include_router(devices_delete.router)
     
 
 

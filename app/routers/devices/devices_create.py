@@ -2,9 +2,9 @@
 from fastapi import APIRouter, BackgroundTasks, UploadFile, File
 
 from app.schemas.google_sheet import GoogleSheetRequest
-from app.services.pods.pods_service import create_pod_device_service, create_pod_devices_from_csv_service, create_pod_devices_from_google_sheet_service
+from app.services.pods.devices_service import create_pod_device_service, create_pod_devices_from_csv_service, create_pod_devices_from_google_sheet_service
 
-router = APIRouter(prefix="/pods/new-device", tags=["pods:create"])
+router = APIRouter(prefix="/device/new-device", tags=["devices:create"])
 
 @router.post("/csv")
 async def create_pod_devices_from_csv(

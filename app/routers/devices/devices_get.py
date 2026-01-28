@@ -1,10 +1,10 @@
 from fastapi import APIRouter, File, UploadFile
 
 from app.schemas.google_sheet import GoogleSheetRequest
-from app.services.pods.pods_service import get_device_by_pod_id_service, get_devices_from_csv_service, get_devices_from_google_sheet_service
+from app.services.pods.devices_service import get_device_by_pod_id_service, get_devices_from_csv_service, get_devices_from_google_sheet_service
 
 
-router = APIRouter(prefix="/pods/device", tags=["pods:get"])
+router = APIRouter(prefix="/device/info", tags=["devices:get"])
 
 @router.get("/csv")
 async def get_devices_from_csv(
